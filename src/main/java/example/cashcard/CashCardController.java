@@ -46,11 +46,11 @@ public class CashCardController {
     }
 
     // mine implementation
-    @GetMapping("/findAll")
-    private ResponseEntity<Iterable<CashCard>> findAll() {
-        Iterable<CashCard> cashCards = cashCardRepository.findAll();
-        return ResponseEntity.ok(cashCards);
-    }
+//    @GetMapping("/findAll")
+//    private ResponseEntity<Iterable<CashCard>> findAll() {
+//        Iterable<CashCard> cashCards = cashCardRepository.findAll();
+//        return ResponseEntity.ok(cashCards);
+//    }
 
 //    spring's academy implementation. Page needs more than one argument
 //    @GetMapping
@@ -62,4 +62,9 @@ public class CashCardController {
 //                        pageable.getSortOr(Sort.by(Sort.Direction.DESC, "amount"))));
 //        return ResponseEntity.ok(page.getContent());
 //    }
+
+    @GetMapping()
+    private ResponseEntity<Iterable<CashCard>> findAll() {
+        return ResponseEntity.ok(cashCardRepository.findAll());
+    }
 }

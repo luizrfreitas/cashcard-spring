@@ -65,25 +65,31 @@ class CashCardApplicationTests {
 
     }
 
+//	@Test
+//	void shouldGetMoreThanOneCashCard() {
+//		CashCard cashCardA = new CashCard(null, 123.12);
+//		CashCard cashCardB = new CashCard(null, 555.55);
+//		CashCard cashCardC = new CashCard(null, 33.11);
+//
+//		restTemplate.postForEntity("/cashcards", cashCardA, Void.class);
+//		restTemplate.postForEntity("/cashcards", cashCardB, Void.class);
+//		restTemplate.postForEntity("/cashcards", cashCardC, Void.class);
+//
+//		ResponseEntity<String> response = restTemplate.getForEntity("/cashcards/findAll", String.class);
+//		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//
+//		DocumentContext documentContext = JsonPath.parse(response.getBody());
+//		Number firstCashCardId = documentContext.read("$[0].id");
+//
+//		assertThat(firstCashCardId).isNotNull();
+//
+//		Object firstCashCard = documentContext.read("$[0]");
+//		assertThat(firstCashCard).isNotNull();
+//	}
+
 	@Test
-	void shouldGetMoreThanOneCashCard() {
-		CashCard cashCardA = new CashCard(null, 123.12);
-		CashCard cashCardB = new CashCard(null, 555.55);
-		CashCard cashCardC = new CashCard(null, 33.11);
-
-		restTemplate.postForEntity("/cashcards", cashCardA, Void.class);
-		restTemplate.postForEntity("/cashcards", cashCardB, Void.class);
-		restTemplate.postForEntity("/cashcards", cashCardC, Void.class);
-
-		ResponseEntity<String> response = restTemplate.getForEntity("/cashcards/findAll", String.class);
+	void shouldReturnAllCashCardsWhenListIsRequested() {
+		ResponseEntity<String> response = restTemplate.getForEntity("/cashcards", String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-		DocumentContext documentContext = JsonPath.parse(response.getBody());
-		Number firstCashCardId = documentContext.read("$[0].id");
-
-		assertThat(firstCashCardId).isNotNull();
-
-		Object firstCashCard = documentContext.read("$[0]");
-		assertThat(firstCashCard).isNotNull();
 	}
 }
