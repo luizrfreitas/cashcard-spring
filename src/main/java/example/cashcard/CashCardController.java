@@ -1,18 +1,14 @@
 package example.cashcard;
 
-import org.h2.mvstore.Page;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.awt.print.Pageable;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/cashcards")
@@ -52,19 +48,13 @@ public class CashCardController {
 //        return ResponseEntity.ok(cashCards);
 //    }
 
-//    spring's academy implementation. Page needs more than one argument
-//    @GetMapping
-//    private ResponseEntity<List<CashCard>> findAll(Pageable pageable) {
-//        Page<CashCard> page = cashCardRepository.findAll(
-//                PageRequest.of(
-//                        pageable.getPageNumber(),
-//                        pageable.getPageSize(),
-//                        pageable.getSortOr(Sort.by(Sort.Direction.DESC, "amount"))));
-//        return ResponseEntity.ok(page.getContent());
-//    }
-
-    @GetMapping()
-    private ResponseEntity<Iterable<CashCard>> findAll() {
-        return ResponseEntity.ok(cashCardRepository.findAll());
+    @GetMapping
+    private ResponseEntity<List<CashCard>> findAll(Pageable pageable) {
+        Page<CashCard> page = cashCardRepository.findAll(
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize())
+        );
+        return ResponseEntity.ok(page.getContent());
     }
 }
